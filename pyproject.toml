@@ -1,0 +1,22 @@
+[project]
+name = "capstone-rag-system"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "dotenv>=0.9.9",
+    "fastapi>=0.135.2",
+    "langchain>=1.2.13",
+    "langchain-community>=0.4.1",
+    "langchain-core>=1.2.23",
+    "langchain-google-genai>=4.2.1",
+    "langchain-openai>=1.1.12",
+    "langchain-postgres>=0.0.17",
+    "psycopg2>=2.9.11",
+    "pydantic>=2.12.5",
+    "pypdf>=6.9.2",
+    "python-multipart>=0.0.22",
+    "streamlit>=1.55.0",
+    "uvicorn>=0.42.0",
+]
