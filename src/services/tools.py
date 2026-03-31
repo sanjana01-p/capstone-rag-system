@@ -1,18 +1,34 @@
 from langchain.tools import tool
-from src.core.db import get_vector_store
+from src.services.query_service import query_documents
+
 
 @tool
-def retrieve_docs(query: str) -> str:
+def retrieve_hr_docs(query: str) -> str:
     """
-    Use this tool to search documents from the knowledge base.
+    Search HR policy documents.
+    Automatically performs keyword, hybrid, or vector search.
+    Returns formatted document chunks with source and page.
     """
-    vector_store = get_vector_store()
-    retriever = vector_store.as_retriever(search_kwargs={"k": 3})
 
-    docs = retriever.invoke(query)
+    docs = query_documents(query, k=5)
 
     if not docs:
-        return "No relevant documents found."
+        return "No relevant data found"
 
-    context = "\n\n".join([doc.page_content for doc in docs])
-    return context
+    results = []
+
+    for i, doc in enumerate(docs):
+        content = doc.get("content", "").strip()
+        metadata = doc.get("metadata", {}) or {}
+
+        source = metadata.get("source", "unknown")
+        page = metadata.get("page", "N/A")
+
+        results.append(
+            f"[Document {i+1}]\n"
+            f"Content: {content}\n"
+            f"Source: {source}\n"
+            f"Page: {page}"
+        )
+
+    return "\n\n".join(results)
