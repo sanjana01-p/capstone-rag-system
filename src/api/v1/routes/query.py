@@ -15,10 +15,8 @@ def query_api(request: QueryRequest):
     result = query_rag(request.query)
 
     try:
-        # 🔥 Correct extraction from AIMessage
         ai_msg = result["messages"][-1]
 
-        # Gemini returns list content
         if isinstance(ai_msg.content, list):
             raw_text = ai_msg.content[0]["text"]
         else:
@@ -27,7 +25,7 @@ def query_api(request: QueryRequest):
         parsed = json.loads(raw_text)
 
     except Exception as e:
-        print("🔥 RAW RESULT:", result)
+        print("RAW RESULT:", result)
         return {
             "query": request.query,
             "answer": "Error parsing response",
@@ -37,5 +35,6 @@ def query_api(request: QueryRequest):
     return QueryResponse(
         query=parsed.get("query", request.query),
         answer=parsed.get("answer", ""),
-        citations=parsed.get("Policy_citations", [])
+        page_no=parsed.get("page_no", ""),
+        section=parsed.get("section", "")
     )

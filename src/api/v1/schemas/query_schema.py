@@ -9,9 +9,11 @@ class QueryRequest(BaseModel):
 class Citation(BaseModel):
     document_name: str
     page_no: str
+    section: str
 
 
 class QueryResponse(BaseModel):
     query: str
     answer: str
-    citations: List[Citation]
+    page_no: str
+    section: str

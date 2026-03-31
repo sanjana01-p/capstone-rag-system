@@ -5,11 +5,8 @@ from src.services.query_service import query_documents
 @tool
 def retrieve_hr_docs(query: str) -> str:
     """
-    Search HR policy documents.
-    Automatically performs keyword, hybrid, or vector search.
-    Returns formatted document chunks with source and page.
+    Retrieve relevant HR documents based on the user query.
     """
-
     docs = query_documents(query, k=5)
 
     if not docs:
@@ -21,14 +18,16 @@ def retrieve_hr_docs(query: str) -> str:
         content = doc.get("content", "").strip()
         metadata = doc.get("metadata", {}) or {}
 
-        source = metadata.get("source", "unknown")
+        source = metadata.get("source", "Unknown Document")
         page = metadata.get("page", "N/A")
+        section = metadata.get("section", "General")
 
         results.append(
-            f"[Document {i+1}]\n"
+            f"Document {i+1}\n"
             f"Content: {content}\n"
             f"Source: {source}\n"
-            f"Page: {page}"
+            f"Page: {page}\n"
+            f"Section: {section}"
         )
 
     return "\n\n".join(results)

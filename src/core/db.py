@@ -13,7 +13,7 @@ def get_embeddings():
         api_key=os.getenv("GOOGLE_API_KEY")
     )
 
-def get_vector_store(collection_name: str = "hr_support_desk"):
+def get_vector_store(collection_name: str = "loan_support_desk"):
     return PGVector(
         collection_name=collection_name,
         connection=PG_CONNECTION,
