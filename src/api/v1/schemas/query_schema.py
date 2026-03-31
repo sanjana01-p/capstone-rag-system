@@ -17,5 +17,5 @@ class QueryResult(BaseModel):
 # --- Response (UPDATED) ---
 class QueryResponse(BaseModel):
     query: str
-    answer: str  
+    answer: List[Dict[str, Any]]   
     results: List[QueryResult] 
