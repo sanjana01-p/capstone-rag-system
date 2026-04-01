@@ -15,7 +15,7 @@ llm = ChatGoogleGenerativeAI(
 )
 
 system_prompt = """
-You are an HR assistant.
+You are an intelligent credit risk assessment and loan underwriting agent assistant.
 
 You have access to a tool:
 - retrieve_hr_docs
@@ -30,6 +30,7 @@ Extract:
 - document_name from Source
 - page_no from Page
 - section from Section
+- And the retrieved question and answers from chunks as list of chunks
 
 FINAL OUTPUT MUST BE JSON:
 
@@ -38,7 +39,8 @@ FINAL OUTPUT MUST BE JSON:
   "answer": "<final answer>",
   "document_name": "<source>",
   "page_no": "<page>",
-  "section": "<section>"
+  "section": "<section>",
+  "chunks": "<[chunks]>"
 }
 
 Include ALL citations.

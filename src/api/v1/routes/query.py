@@ -23,18 +23,21 @@ def query_api(request: QueryRequest):
             raw_text = ai_msg.content
 
         parsed = json.loads(raw_text)
+        print(parsed)
 
     except Exception as e:
         print("RAW RESULT:", result)
         return {
             "query": request.query,
             "answer": "Error parsing response",
-            "citations": []
+            "retrieved_content": []
         }
 
     return QueryResponse(
         query=parsed.get("query", request.query),
         answer=parsed.get("answer", ""),
         page_no=parsed.get("page_no", ""),
-        section=parsed.get("section", "")
+        section=parsed.get("section", ""),
+        document_name = parsed.get("document_name", ""),
+        retrieved_content = parsed.get("chunks", [])
     )

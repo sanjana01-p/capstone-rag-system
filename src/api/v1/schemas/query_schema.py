@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Any, Optional
 
 
 class QueryRequest(BaseModel):
@@ -17,3 +17,5 @@ class QueryResponse(BaseModel):
     answer: str
     page_no: str
     section: str
+    document_name: str
+    retrieved_content: Optional[List[str]]  =[]
